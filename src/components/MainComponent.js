@@ -10,7 +10,7 @@ import { connect } from "react-redux";
 import { COMMENTS } from "../shared/comments";
 import { PROMOTIONS } from "../shared/promotions";
 import { LEADERS } from "../shared/leaders";
-import DishDetail from "./DishdetailComponent";
+import Dishdetail from "./DishdetailComponent";
 
 const mapStateToProps = (state) => {
   return {
@@ -20,6 +20,7 @@ const mapStateToProps = (state) => {
     leaders: state.leaders,
   };
 };
+
 class Main extends Component {
   constructor(props) {
     super(props);
@@ -46,6 +47,15 @@ class Main extends Component {
         />
       );
     };
+    const DishWithId = ({ match }) => {
+      return (
+        <Dishdetail
+          comments={this.props.comments}
+          dishes={this.props.dishes}
+          selectedDish={match.params.dishId}
+        />
+      );
+    };
     return (
       <div>
         <Header />
@@ -64,6 +74,7 @@ class Main extends Component {
               />
             )}
           />
+          <Route path="/menu/:dishId" component={DishWithId} />
           <Route exact path="/contactus" component={Contact} />
           <Redirect to="/home" />
         </Switch>
